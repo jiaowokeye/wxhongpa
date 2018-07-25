@@ -1,0 +1,128 @@
+@import "./../../components/public/reset";
+.index {
+  background-size: 100%;
+  height: 100%;
+  @include flexParent;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .bg-img {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+  }
+  .red{
+    width:262px;
+    height:160px;
+    background: url($imgurl + "red.png") no-repeat;
+    background-size: 100%;
+    @include flexParent;
+    align-items: center;
+    justify-content:center;
+    font-size: 94px;
+    color:#fff;
+  }
+  .white{
+    width:267px;
+    height:160px;
+    background: url($imgurl + "white.png") no-repeat;
+    background-size: 100%;
+    @include flexParent;
+    align-items: center;
+    justify-content:center;
+    font-size: 94px;
+    color:#aa2d2d;
+  }
+  .types1{
+    @include flexParent;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    flex: 1;
+    .top{
+      flex:2;
+      @include flexParent;
+      align-items: center;
+      justify-content: center;
+      font-size: 106px;
+    }
+    .middle{
+      flex:4;
+      @include flexParent;
+      .colspan{
+        flex:3;
+        @include flexParent;
+        flex-direction: column ;
+        align-items: center;
+        justify-content: center;
+        .rowspan{
+          flex:1;
+          @include flexParent;
+          align-items: center;
+          justify-content:center;
+        }
+
+        .group{
+          font-size: 146px;
+        }
+
+        .scope{
+          font-size: 150px;
+        }
+
+      }
+      .colspan-middle.colspan{
+        flex:1
+      }
+    }
+    .bottom{
+      flex:1;
+    }
+  }
+  .types2{
+    @include flexParent;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    flex: 1;
+    .top{
+      flex: 1;
+      @include flexParent;
+      align-items: center;
+      justify-content: center;
+      font-size: 106px;
+    }
+    .middle{
+      flex: 2;
+      @include flexParent;
+      align-items: center;
+      justify-content: center;
+      font-size: 147px;
+    }
+    .bottom{
+      flex: 3;
+      @include flexParent;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .rowspan{
+        @include flexParent;
+        align-items: center;
+        justify-content: center;
+        .red,.white{
+          margin:0 80px;
+          font-size: 74px;
+        }
+      }
+      .rowspan:first-child{
+        justify-content:space-between;
+      }
+    }
+  }
+  .hide{
+    display: none;
+  }
+}

@@ -1,0 +1,107 @@
+@import "./../../components/public/reset";
+
+.index {
+  background-size: 100%;
+  height: 100%;
+  @include flexParent;
+  flex-direction: column ;
+  align-items: center;
+  justify-content:center;
+  .bg-img {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+  }
+  .team-info{
+    flex:3;
+    z-index: 10;
+    @include flexParent;
+    align-items: center;
+    justify-content:center;
+    view.red{
+      background:url($imgurl + "white.png") no-repeat;
+      background-size: 100%;
+      color:#aa2d2d;
+    }
+    view.white{
+      background:url($imgurl + "red.png") no-repeat;
+      background-size: 100%;
+      color:#fff;
+    }
+    view{
+      width: 500px;
+      height: 300px;
+      @include flexParent;
+      align-items: center;
+      justify-content:center;
+      font-size: 150px;
+    }
+  }
+  .team-real{
+    flex: 1;
+    z-index: 10;
+    font-size: 81px;
+    color:#000;
+    margin-top:-10%;
+  }
+  .scope{
+    flex:2;
+    z-index: 10;
+    image{
+      width:140px;
+      height:165px;
+    }
+  }
+  .cover-control {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    @include flexParent;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 20;
+    .cover-content {
+      position: relative;
+      margin-top:8%;
+      width: 685px;
+      height:875px;
+      text-align: center;
+      color:#fff;
+      background: url($imgurl + "realTimeCoverbg.png");
+      background-size: 100%;
+      .cover-title{
+        font-size: 96px;
+        margin-top: 145px;
+      }
+      .cover-rule{
+        font-size: 52px;
+        margin:30px 0 25px;
+      }
+      .cover-des{
+        font-size: 27px;
+        line-height: 36px;
+      }
+      .cover-prop{
+        font-size: 48px;
+        line-height: 64px;
+        margin-top:30px;
+      }
+      .cover-close{
+        width: 115px;
+        height:115px;
+        background: url($imgurl + "close.png");
+        background-size: 100%;
+        position: absolute;
+        right:40px;
+        top:40px;
+      }
+    }
+  }
+}
+.hide{
+  display: none!important;
+}

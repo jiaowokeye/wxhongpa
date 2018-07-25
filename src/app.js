@@ -1,19 +1,25 @@
 import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
-import SSS from './pages/sss'
+import { Provider } from '@tarojs/redux'
+import configStore from './store'
+import Index from './pages/index/index'
 import './app.scss'
-
+import './tongxin.css'
+const store = configStore();
 class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/sss/index'
+      'pages/InitiateParty/index',
+      'pages/fillInfo/index',
+      'pages/chooseGroup/index',
+      'pages/realTime/index',
+      'pages/gameControl/index',
+      'pages/gameRule/index',
+      'pages/functionControl/index'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationStyle: "custom"
     }
   }
 
@@ -27,7 +33,9 @@ class App extends Component {
 
   render () {
     return (
-      <Index />
+      <Provider store={store}>
+        <Index />
+      </Provider>
     )
   }
 }

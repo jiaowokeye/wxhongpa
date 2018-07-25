@@ -1,0 +1,105 @@
+@import "./../../components/public/reset";
+.index {
+  background-size: 100%;
+  height: 100%;
+  @include flexParent;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .bg-img {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+  }
+  .step1{
+    flex: 1;
+    z-index: 10;
+    @include flexParent;
+    align-items: center;
+    justify-content: center;
+    .party-button{
+      width: 567px;
+      height: 567px;
+      color:#fff;
+      background: url($imgurl + "redCir.png") no-repeat;
+      background-size: 100%;
+      @include flexParent;
+      align-items: center;
+      justify-content: center;
+      font-size: 103px;
+      line-height: 135px;
+    }
+  }
+  .step2{
+    flex: 1;
+    z-index: 10;
+    @include flexParent;
+    align-items: center;
+    flex-direction: column;
+    .top{
+      flex:3;
+      @include flexParent;
+      align-items: center;
+      flex-direction: column;
+      .title{
+        font-size: 42px;
+        margin-top:200px;
+      }
+      .des{
+        font-size: 32px;
+        line-height: 45px;
+        margin:75px 0;
+        text-align: center;
+      }
+      .content{
+
+      }
+    }
+  }
+  .step3{
+    flex: 1;
+    z-index: 10;
+    @include flexParent;
+    align-items: center;
+    flex-direction: column;
+    .top{
+      flex:3;
+      @include flexParent;
+      align-items: center;
+      flex-direction: column;
+      .title{
+        font-size: 42px;
+        margin-top:200px;
+      }
+      .des{
+        font-size: 32px;
+        line-height: 45px;
+        margin:75px 0;
+        text-align: center;
+      }
+      .content{
+
+      }
+    }
+    .bottom{
+      flex:1;
+      @include flexParent;
+      align-items: center;
+      justify-content:center;
+      z-index: 10;
+      .start-game{
+        width:328px;
+        height:88px;
+        text-align: center;
+        line-height: 88px;
+        background: #bb4c3a;
+        color: #f8f5f5;
+      }
+    }
+  }
+}
+
+.hide{
+  display: none;
+}

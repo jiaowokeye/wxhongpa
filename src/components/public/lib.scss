@@ -1,3 +1,5 @@
+$imgurl: "http://111.198.29.228:18080/wxsmallimg/";
+
 @mixin singleEllipsis{
   overflow: hidden;
   text-overflow:ellipsis;
@@ -53,4 +55,12 @@
   left:$left;
   bottom: $bottom;
   right:$right;
+}
+
+@mixin allBg{
+  position: fixed;
+  left:0;
+  right: 0;
+  top:0;
+  bottom: 0;
 }
