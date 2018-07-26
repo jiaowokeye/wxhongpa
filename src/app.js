@@ -19,11 +19,14 @@ class App extends Component {
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationStyle: "custom"
+      navigationStyle: "custom",
+      onReachBottomDistance:0
     }
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+
+  }
 
   componentDidShow () {}
 

@@ -15,7 +15,8 @@ export default class Index extends Component {
   state={
     name:"",
     tel:"",
-    code:""
+    code:"",
+    visible:true
   }
   componentWillMount () { }
 
@@ -47,24 +48,20 @@ export default class Index extends Component {
     })
   }
   enterGame=()=>{
-    console.log(this.state);
-    //这里处理一些东西保存信息啊之类的
-    //然后跳转
-    if(this.props.counter.IDENTITY_TYPE==2){//裁判
-      Taro.navigateTo({
-        url: './../gameControl/index'
-      })
-    }else{//成员
-      Taro.navigateTo({
-        url: './../realTime/index'
-      })
-    }
-
+    Taro.navigateTo({
+      url: './../InitiateParty/index'
+    })
+  }
+  hideCover = ()=>{
+    this.setState({
+      visible:false
+    })
   }
   componentDidHide () {
 
   }
   render () {
+    let coverClassName = this.state.visible?"cover-control":"hide";
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -80,15 +77,23 @@ export default class Index extends Component {
           </View>
           <View className="form-group">
             <View>手机号</View>
-            <Input type="number" onChange={this.changeTel} />
+            <Input type="number" onChange={this.changeTel} confirm-type="send" />
           </View>
           <View className="form-group">
             <View>验证码</View>
-            <Input type="text" onChange={this.changeCode} />
+            <View className='code'>
+              <Input type="text" onChange={this.changeCode} /><Text>获取验证码</Text>
+            </View>
           </View>
         </View>
         <View className='footer-button'>
           <View className='start-game' onClick={this.enterGame}>进入游戏</View>
+        </View>
+        <View className={coverClassName}>
+          <View className='cover-content'>
+            <View className='cover-close' onClick={this.hideCover}></View>
+            <Text>你输入的验证码有误\n请重新输入</Text>
+          </View>
         </View>
       </View>
     )

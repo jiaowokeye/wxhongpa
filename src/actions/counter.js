@@ -12,3 +12,10 @@ export const changeGroupType = (GroupType) => {
     GroupType:GroupType
   }
 }
+
+export const saveOpenid = (openid) => {
+  return {
+    type: Constants.OPENID,
+    GroupType:openid
+  }
+}

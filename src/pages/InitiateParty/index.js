@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View ,Input,Text} from '@tarojs/components'
+import { View ,Input,Text,OpenData} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from "./bg.png"
@@ -14,11 +14,15 @@ export default class SSS extends Component {
     navigationBarTitleText: '游戏'
   }
   state = {
-    step:1  //1发起或者加入派对按钮   2-输入数字  3-等人满然后进入游戏
+    step:1,  //1发起或者加入派对按钮   2-输入数字  3-等人满然后进入游戏
+    userInfo:{},
+    hasUserInfo:false,
+    password:"····",
+    focus:false
   }
-  componentWillMount () { }
 
   componentDidMount () {
+      let [code,openid] = ["",""];
       console.log(this.props.counter.IDENTITY_TYPE);//玩家身份 1-玩家 2-裁判
       this.setState({
         step:1
@@ -26,32 +30,50 @@ export default class SSS extends Component {
   }
   changeStep=(step)=>{
     this.setState({
-      step:step
+      step:step,
+      focus:false
     })
+    if(step==2){
+      this.setState({
+        focus:true
+      })
+    }
   }
   enterGame=()=>{
     console.log(this.state);
     //这里处理一些东西保存信息啊之类的
     //然后跳转
-    if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍界面
+    if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍积分页面
       Taro.navigateTo({
-        url: './../chooseGroup/index'
+        url: './../realTime/index'
       })
-    }else{//裁判身份点确认，进去输入信息页面
+    }else{//裁判身份点确认，进去游戏控制中心
       Taro.navigateTo({
-        url: './../fillInfo/index'
+        url: './../gameControl/index'
       })
     }
 
   }
-  componentWillUnmount () { }
+  changePassWord = (e)=>{
+    let value = e.target.value;
+    if(value.length<4){
+      value = value + "····".substr(value.length,4);
+      this.setState({
+        password:value
+      })
+    }else{
+      this.setState({
+        password:value
+      });
+      this.changeStep(3);
+    }
 
-  componentDidShow () {
 
   }
-
-  componentDidHide () {
-
+  onBlur = ()=>{
+    this.setState({
+      focus:false
+    })
   }
 
   render () {
@@ -74,8 +96,9 @@ export default class SSS extends Component {
               <Text>和身边的朋友输入同样的四个数字, \n进入同一场派对</Text>
             </View>
             <View className='content'>
-                <Input />
-                <Button onClick={this.changeStep.bind(this,3)}>进入第三部</Button>
+                <Input type='number' onBlur={this.onBlur} onInput={this.changePassWord} focus={this.state.focus} confirm-hold={true}/>
+                <View onClick={this.changeStep.bind(this,2)}>{this.state.password}</View>
+                <Button onClick={this.changeStep.bind(this,3)}>进入第三步(pc拉不起键盘，开发用按钮，手机请直接输入)</Button>
             </View>
           </View>
         </View>
@@ -86,7 +109,7 @@ export default class SSS extends Component {
               <Text>这些朋友也将进入派对</Text>
             </View>
             <View className='content'>
-
+              <OpenData type='userAvatarUrl' />
             </View>
           </View>
           <View className='bottom'>

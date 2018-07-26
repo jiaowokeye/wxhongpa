@@ -2,7 +2,8 @@ import * as Constants from "./../constants/counter"
 
 const INITIAL_STATE = {
   IDENTITY_TYPE: 1,//玩家身份 1-玩家 2-裁判
-  GROUP_INFO:1//队伍  1-红  2-白
+  GROUP_INFO:1,//队伍  1-红  2-白
+  OPEN_ID:""
 }
 export default function counter (state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -15,6 +16,12 @@ export default function counter (state = INITIAL_STATE, action) {
       return {
         ...state,
         GROUP_INFO: action.GroupType
+      }
+
+    case Constants.OPENID:
+      return {
+        ...state,
+        OPEN_ID: action.openid
       }
     default:
       return state

@@ -78,6 +78,20 @@ export default class Index extends Component {
         break;
     }
   }
+
+  //改变分数  type 1-红 2-白  eval 1-加 2-减
+  changeScope = (type,eval_type)=>{
+    let num = eval_type==1?1:-1;
+    if(type==1){
+      this.setState({
+        scope1:(this.state.scope1+num<0?0:this.state.scope1+num)
+      })
+    }else{
+      this.setState({
+        scope2:(this.state.scope2+num<0?0:this.state.scope2+num)
+      })
+    }
+  }
   //暂停
   timePause = ()=>{
     clearInterval(Time1);
@@ -135,16 +149,16 @@ export default class Index extends Component {
               <View className='rowspan group'>
                 红
               </View>
-              <View className='rowspan red'>
-                +
+              <View className='rowspan' onClick={this.changeScope.bind(this,1,1)}>
+                <View className='red'>+</View>
               </View>
               <View className='rowspan scope'>
                 {
                   this.state.scope1
                 }
               </View>
-              <View className='rowspan red'>
-                -
+              <View className='rowspan' onClick={this.changeScope.bind(this,1,2)}>
+                <View className='red'>-</View>
               </View>
             </View>
             <View className='colspan colspan-middle'>
@@ -157,16 +171,16 @@ export default class Index extends Component {
               <View className='rowspan group'>
                 白
               </View>
-              <View className='rowspan white'>
-                +
+              <View className='rowspan' onClick={this.changeScope.bind(this,2,1)}>
+                <View className='white'>+</View>
               </View>
               <View className='rowspan scope'>
                 {
                   this.state.scope2
                 }
               </View>
-              <View className='rowspan white'>
-                -
+              <View className='rowspan' onClick={this.changeScope.bind(this,2,2)}>
+                <View className='white'>-</View>
               </View>
             </View>
           </View>
