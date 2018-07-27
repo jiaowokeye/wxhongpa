@@ -25,7 +25,9 @@ class App extends Component {
   }
 
   componentDidMount () {
-
+    Taro.showShareMenu({
+      withShareTicket: true
+    })
   }
 
   componentDidShow () {}

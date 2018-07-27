@@ -1,12 +1,15 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View,Text,Input} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import { saveUserId } from '../../actions/counter'
 import './index.scss'
 import BgImg from "./bg.png"
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
-
+  saveUserId(user_id){
+    dispatch(saveUserId(user_id))
+  }
 }))
 export default class Index extends Component {
   config = {
@@ -16,7 +19,7 @@ export default class Index extends Component {
     name:"",
     tel:"",
     code:"",
-    visible:true
+    visible:false
   }
   componentWillMount () { }
 
@@ -47,15 +50,118 @@ export default class Index extends Component {
       code:e.target.value
     })
   }
+  //进入游戏
   enterGame=()=>{
+    Taro.request({
+      url: 'https://application.idaowei.com/party/user/basic.do?login',
+      data: {
+        user_id:this.props.counter.USER_ID,
+        login_code:this.state.code
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function(res) {
+
+      }}).then((res)=>{
+
+    });
+    //应该写到success里
     Taro.navigateTo({
       url: './../InitiateParty/index'
     })
   }
+  //隐藏遮遭层
   hideCover = ()=>{
     this.setState({
       visible:false
     })
+  }
+  //显示遮遭层
+  showCover = ()=>{
+    this.setState({
+      visible:true
+    })
+  }
+  sendCode = ()=>{
+    let TelReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if(this.state.name==""){
+      Taro.showModal({
+        title: '提示',
+        content: '请先填写用户昵称',
+        showCancel:false,
+        success: function(res) {
+
+        }
+      })
+      return;
+    }
+    if(!TelReg.test(this.state.tel)){
+      Taro.showModal({
+        title: '提示',
+        content: '用户手机号输入错误',
+        showCancel:false,
+        success: function(res) {
+
+        }
+      })
+      return;
+    }
+    //先去创建一个用户
+    Taro.request({
+      url: 'https://application.idaowei.com/party/user/basic.do?add',
+      data: {
+        open_id:this.props.counter.OPEN_ID,
+        nickname:this.state.name,
+        head_photo:this.props.counter.PHOTO_URL
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      //成功store保存user_id
+      success: function(res) {
+        this.props.saveUserId(res.data);
+      },
+      fail:(res)=>{
+        //失败提示网络错误
+        Taro.showModal({
+          title: '提示',
+          content: '网络错误！',
+          showCancel:false,
+          success: function(res) {
+              
+          }
+        })
+      }
+    }).then((res)=>{
+        this.sendCodeRequest();
+    });
+      //测试用 直接设置user_id为4  发送验证码
+      this.props.saveUserId(4);
+      this.sendCodeRequest();
+  }
+  //发送验证码
+  sendCodeRequest = ()=>{
+    Taro.request({
+      url: 'https://application.idaowei.com/party/user/basic.do?sendCode',
+      data: {
+        user_id:this.props.counter.USER_ID,
+        nickname:this.state.name,
+        phone:this.state.tels
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function(res) {
+        Taro.showModal({
+          title: '提示',
+          content: '短信发送成功，请注意接收',
+          showCancel:false,
+          success: function(res) {
+            
+          }
+        })
+      }});
   }
   componentDidHide () {
 
@@ -77,12 +183,12 @@ export default class Index extends Component {
           </View>
           <View className="form-group">
             <View>手机号</View>
-            <Input type="number" onChange={this.changeTel} confirm-type="send" />
+            <Input type="number" onChange={this.changeTel} />
           </View>
           <View className="form-group">
             <View>验证码</View>
             <View className='code'>
-              <Input type="text" onChange={this.changeCode} /><Text>获取验证码</Text>
+              <Input type="text" onChange={this.changeCode} /><Text onClick={this.sendCode}>获取验证码</Text>
             </View>
           </View>
         </View>

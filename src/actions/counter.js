@@ -16,6 +16,21 @@ export const changeGroupType = (GroupType) => {
 export const saveOpenid = (openid) => {
   return {
     type: Constants.OPENID,
-    GroupType:openid
+    OPEN_ID:openid
   }
 }
+
+export const savePhoto = (url) => {
+  return {
+    type: Constants.PHOTO,
+    PHOTO_URL:url
+  }
+}
+
+export const saveUserId = (userid) => {
+  return {
+    type: Constants.USERID,
+    USER_ID:userid
+  }
+}
+

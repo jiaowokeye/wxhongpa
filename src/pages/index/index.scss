@@ -34,7 +34,12 @@
         justify-content:center;
         background: url($imgurl + "redCir.png") no-repeat;
         background-size: 100%;
-        font-size: 76px;
+        button{
+          color:#fff;
+          background: transparent;
+          border:0;
+          font-size: 76px;
+        }
       }
       view.active{
         width: 260px;
