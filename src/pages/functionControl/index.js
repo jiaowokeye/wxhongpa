@@ -42,7 +42,7 @@ export default class Index extends Component {
           break;
     }
     Taro.connectSocket({
-      url: 'wss://application.idaowei.com/websocket',
+      url: 'wss://application.idaowei.com',
       data:{
         x: '',
         y: ''

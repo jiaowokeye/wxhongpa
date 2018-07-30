@@ -22,7 +22,7 @@ export default class SSS extends Component {
     password:"····",
     focus:false,
     room_id:"",
-    user:[]
+    user:[{head_photo:"https://wx.qlogo.cn/mmopen/vi_32/ykGRcou2PxlBThyWcrkoJ14ubQ6eiaaOzK8bm6ADaox1pCmkln1d3znSGhVXghIePMnDKFDY4kOUTVNZTG8kgPw/132"}]
   }
 
   componentDidMount () {
@@ -89,13 +89,11 @@ export default class SSS extends Component {
             room_id:res.data.data.room_id,
             step:3
           })
+          setTimeout(()=>{
+            this.getInfoById();
+          },200)
         }
-      }}).then((res)=>{
-      setTimeout(()=>{
-        this.getInfoById();
-      },200)
-
-    })
+      }})
   }
   //新建房间
   addRoom = ()=>{
@@ -143,7 +141,7 @@ export default class SSS extends Component {
         if(res.data.result!==1){
           Taro.showModal({
             title: '提示',
-            content: res.data.data.message,
+            content: res.data.message,
             showCancel:false,
             success: function(res) {
 
@@ -167,7 +165,7 @@ export default class SSS extends Component {
             if(res.data.result!==1){
               Taro.showModal({
                 title: '提示',
-                content: res.data.data.message,
+                content: res.data.message,
                 showCancel:false,
                 success: function(res) {
 
@@ -210,7 +208,7 @@ export default class SSS extends Component {
         if(res.data.result!==1){
           Taro.showModal({
             title: '提示',
-            content: res.data.data.message,
+            content: res.data.message,
             showCancel:false,
             success: function(res) {
 
@@ -264,15 +262,6 @@ export default class SSS extends Component {
     let step1ClassName = this.state.step==1?"step1":"hide";
     let step2ClassName = this.state.step==2?"step2":"hide";
     let step3ClassName = this.state.step==3?"step3":"hide";
-    const CreateUserInfo = ()=>{
-      let items = [];
-      this.state.user.map((e,i)=>{
-        items.push(
-          <Image src={e.head_photo} />
-        )
-      })
-      return items;
-    }
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -290,7 +279,6 @@ export default class SSS extends Component {
             <View className='content'>
                 <Input type='number' onBlur={this.onBlur} onInput={this.changePassWord} focus={this.state.focus} confirm-hold={true}/>
                 <View onClick={this.changeStep.bind(this,2)}>{this.state.password}</View>
-                <Button onClick={this.changeStep.bind(this,3)}>进入第三步(pc拉不起键盘，开发用按钮，手机请直接输入)</Button>
             </View>
           </View>
         </View>
@@ -302,7 +290,9 @@ export default class SSS extends Component {
             </View>
             <View className='content'>
               {
-                CreateUserInfo()
+                this.state.user.map((e,i)=>{
+                  return  <Image src={e.head_photo} key={i} />
+                })
               }
             </View>
           </View>

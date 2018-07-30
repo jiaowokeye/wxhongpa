@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cae63ec-fc6d-46af-beee-fae3ab1f1ce8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/counter.js" afterPath="$PROJECT_DIR$/src/actions/counter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/constants/counter.js" afterPath="$PROJECT_DIR$/src/constants/counter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/InitiateParty/index.js" afterPath="$PROJECT_DIR$/src/pages/InitiateParty/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/InitiateParty/index.scss" afterPath="$PROJECT_DIR$/src/pages/InitiateParty/index.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fillInfo/index.js" afterPath="$PROJECT_DIR$/src/pages/fillInfo/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/functionControl/index.js" afterPath="$PROJECT_DIR$/src/pages/functionControl/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/gameControl/index.js" afterPath="$PROJECT_DIR$/src/pages/gameControl/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/index/index.js" afterPath="$PROJECT_DIR$/src/pages/index/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/realTime/index.js" afterPath="$PROJECT_DIR$/src/pages/realTime/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/counter.js" afterPath="$PROJECT_DIR$/src/reducers/counter.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,95 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/fillInfo/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="96" column="8" lean-forward="true" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/functionControl/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="44" column="51" lean-forward="true" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
+            <state relative-caret-position="589">
               <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#46#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-              <folding>
-                <element signature="e#25#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="counter.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/reducers/counter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="counter.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/constants/counter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="15" lean-forward="true" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/store/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="40" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="counter.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/actions/counter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="32" column="11" lean-forward="false" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/gameControl/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -142,6 +51,7 @@
       <find>room/basic.do?add</find>
       <find>leaveParty</find>
       <find>saveRoomId</find>
+      <find>findById</find>
     </findStrings>
     <replaceStrings>
       <replace>redirectTo</replace>
@@ -186,14 +96,14 @@
         <option value="$PROJECT_DIR$/src/app.js" />
         <option value="$PROJECT_DIR$/src/constants/counter.js" />
         <option value="$PROJECT_DIR$/src/actions/counter.js" />
-        <option value="$PROJECT_DIR$/src/pages/InitiateParty/index.scss" />
-        <option value="$PROJECT_DIR$/src/pages/InitiateParty/index.js" />
         <option value="$PROJECT_DIR$/src/pages/index/index.js" />
         <option value="$PROJECT_DIR$/src/reducers/counter.js" />
         <option value="$PROJECT_DIR$/src/pages/gameControl/index.js" />
         <option value="$PROJECT_DIR$/src/pages/realTime/index.js" />
         <option value="$USER_HOME$/Desktop/netty-socketio-demo-master/client/index.html" />
         <option value="$PROJECT_DIR$/src/pages/fillInfo/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/InitiateParty/index.scss" />
+        <option value="$PROJECT_DIR$/src/pages/InitiateParty/index.js" />
         <option value="$PROJECT_DIR$/src/pages/functionControl/index.js" />
       </list>
     </option>
@@ -209,7 +119,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="163" />
     <option name="y" value="229" />
     <option name="width" value="1380" />
@@ -245,85 +155,6 @@
               <item name="myApp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="fillInfo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="functionControl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="gameControl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="gameRule" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="index" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="InitiateParty" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="realTime" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -345,19 +176,19 @@
     <property name="node.js.selected.package.standard" value="$PROJECT_DIR$/node_modules/eslint" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/pages/gameControl" />
-      <recent name="$PROJECT_DIR$/src/pages/functionControl" />
-      <recent name="$PROJECT_DIR$/src/pages/InitiateParty" />
-      <recent name="$PROJECT_DIR$/src/pages/gameRule" />
-      <recent name="$PROJECT_DIR$/src/pages/realTime" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/images" />
       <recent name="$PROJECT_DIR$/src/pages/fillInfo" />
       <recent name="$PROJECT_DIR$/src/pages/gameControl" />
       <recent name="$PROJECT_DIR$/src/pages/chooseGroup" />
       <recent name="$PROJECT_DIR$/src/pages/index" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/gameControl" />
+      <recent name="$PROJECT_DIR$/src/pages/functionControl" />
+      <recent name="$PROJECT_DIR$/src/pages/InitiateParty" />
+      <recent name="$PROJECT_DIR$/src/pages/gameRule" />
+      <recent name="$PROJECT_DIR$/src/pages/realTime" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -400,15 +231,15 @@
       <workItem from="1532656820315" duration="7829000" />
       <workItem from="1532679623958" duration="2295000" />
       <workItem from="1532682904976" duration="2000" />
-      <workItem from="1532913459848" duration="12695000" />
+      <workItem from="1532913459848" duration="17197000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123786000" />
+    <option name="totallyTimeSpent" value="128288000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="26" width="1871" height="1054" extended-state="6" />
+    <frame x="49" y="26" width="1871" height="1054" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25243244" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -418,7 +249,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11278196" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15896885" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -661,14 +492,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/InitiateParty/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/netty-socketio-demo-master/client/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -685,26 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/InitiateParty/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="220" column="16" lean-forward="false" selection-start-line="220" selection-start-column="16" selection-end-line="220" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/index/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fillInfo/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -713,38 +516,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/gameControl/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/functionControl/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="44" column="51" lean-forward="true" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
           <folding>
-            <element signature="e#25#64#0" expanded="true" />
+            <element signature="e#25#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -775,8 +552,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="40" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="40" />
+        <state relative-caret-position="285">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#22#74#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/functionControl/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="44" column="41" lean-forward="false" selection-start-line="44" selection-start-column="41" selection-end-line="44" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/gameControl/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/index/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="988">
+          <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/InitiateParty/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1655">
+          <caret line="95" column="9" lean-forward="false" selection-start-line="95" selection-start-column="9" selection-end-line="95" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/InitiateParty/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="96" column="19" lean-forward="false" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
           <folding />
         </state>
       </provider>

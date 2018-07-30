@@ -94,7 +94,13 @@
         text-align: center;
       }
       .content{
-
+        width: 100%;
+        image{
+          float: left;
+          width: 100px;
+          height: 100px;
+          margin-right: 20px;
+        }
       }
     }
     .bottom{
