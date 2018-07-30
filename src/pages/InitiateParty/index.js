@@ -3,11 +3,13 @@ import { View ,Input,Text,OpenData} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from "./bg.png"
-
+import { saveRoomId } from '../../actions/counter'
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
-
+  saveRoomId(room_id){
+    dispatch(saveRoomId(room_id))
+  }
 }))
 export default class SSS extends Component {
   config = {
@@ -18,7 +20,9 @@ export default class SSS extends Component {
     userInfo:{},
     hasUserInfo:false,
     password:"····",
-    focus:false
+    focus:false,
+    room_id:"",
+    user:[]
   }
 
   componentDidMount () {
@@ -29,31 +33,207 @@ export default class SSS extends Component {
       })
   }
   changeStep=(step)=>{
-    this.setState({
-      step:step,
-      focus:false
-    })
-    if(step==2){
-      this.setState({
-        focus:true
-      })
-    }
-  }
-  enterGame=()=>{
-    console.log(this.state);
-    //这里处理一些东西保存信息啊之类的
-    //然后跳转
-    if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍积分页面
-      Taro.navigateTo({
-        url: './../realTime/index'
-      })
-    }else{//裁判身份点确认，进去游戏控制中心
-      Taro.navigateTo({
-        url: './../gameControl/index'
-      })
+
+    switch (step){
+      case 1:
+          this.setState({
+            step:step,
+            focus:false
+          })
+          break;
+      case 2:
+          this.setState({
+            step:step,
+            focus:true
+          })
+          break;
+      case 3:
+          this.setState({
+            focus:false
+          })
+          if(step==3){
+            if(this.props.counter.IDENTITY_TYPE==1){//玩家身份验证队伍
+              this.checkRoom();
+            }else{//裁判身份创建房间
+              this.addRoom();
+            }
+
+          }
+          break;
     }
 
+
   }
+  //验证密码
+  checkRoom = ()=>{
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic.do?check',
+      data: {
+        password:this.state.password
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res)=> {
+        if(res.data.result!==1){
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel:false,
+            success: (res) =>{
+
+            }
+          })
+        }else{
+          this.setState({
+            room_id:res.data.data.room_id,
+            step:3
+          })
+        }
+      }}).then((res)=>{
+      setTimeout(()=>{
+        this.getInfoById();
+      },200)
+
+    })
+  }
+  //新建房间
+  addRoom = ()=>{
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic.do?add',
+      data: {
+        user_id:this.props.counter.USER_ID,
+        password:this.state.password
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res)=> {
+        if(res.data.result!==1){
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }else{
+          this.setState({
+            room_id:res.data.data,
+            step:3
+          })
+          setTimeout(()=>{
+            this.getInfoById();
+          },200)
+        }
+      }})
+  }
+  //获取房间信息
+  getInfoById = ()=>{
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic.do?findById',
+      data: {
+        room_id:this.state.room_id
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res)=> {
+        if(res.data.result!==1){
+          Taro.showModal({
+            title: '提示',
+            content: res.data.data.message,
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }else{
+
+        }
+      }}).then((res)=>{
+        //获取房间成员信息
+        Taro.request({
+          url: 'https://application.idaowei.com/party/room/user.do?query',
+          data: {
+            room_id:this.state.room_id,
+            type:0
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          success: (res)=> {
+            if(res.data.result!==1){
+              Taro.showModal({
+                title: '提示',
+                content: res.data.data.message,
+                showCancel:false,
+                success: function(res) {
+
+                }
+              })
+            }else{
+              this.setState({
+                user:res.data.data
+              })
+            }
+          }})
+    })
+  }
+
+  //进入游戏
+  enterGame=()=>{
+    console.log(this.state);
+    let type = 1;
+    if(this.props.counter.IDENTITY_TYPE==1){
+      if(this.props.counter.GROUP_INFO==1){
+        type = 1;
+      }else{
+        type = 2;
+      }
+    }else{
+      type = 3;
+    }
+    //获取房间成员信息
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/user.do?enter',
+      data: {
+        room_id:this.state.room_id,
+        user_id:this.props.counter.USER_ID,
+        type:type
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res)=> {
+        if(res.data.result!==1){
+          Taro.showModal({
+            title: '提示',
+            content: res.data.data.message,
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }else{
+          //这里处理一些东西保存信息啊之类的
+          //然后跳转
+          this.props.saveRoomId(this.state.room_id);
+          if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍积分页面
+            Taro.navigateTo({
+              url: './../realTime/index'
+            })
+          }else{//裁判身份点确认，进去游戏控制中心
+            Taro.navigateTo({
+              url: './../gameControl/index'
+            })
+          }
+        }
+      }}).then(()=>{
+    })
+  }
+  //改变密码事件
   changePassWord = (e)=>{
     let value = e.target.value;
     if(value.length<4){
@@ -65,7 +245,10 @@ export default class SSS extends Component {
       this.setState({
         password:value
       });
-      this.changeStep(3);
+      setTimeout(()=>{
+        this.changeStep(3);
+      },300)
+
     }
 
 
@@ -81,6 +264,15 @@ export default class SSS extends Component {
     let step1ClassName = this.state.step==1?"step1":"hide";
     let step2ClassName = this.state.step==2?"step2":"hide";
     let step3ClassName = this.state.step==3?"step3":"hide";
+    const CreateUserInfo = ()=>{
+      let items = [];
+      this.state.user.map((e,i)=>{
+        items.push(
+          <Image src={e.head_photo} />
+        )
+      })
+      return items;
+    }
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -104,12 +296,14 @@ export default class SSS extends Component {
         </View>
         <View className={step3ClassName}>
           <View className='top'>
-            <View className='title'>2926</View>
+            <View className='title'>{this.state.room_id}</View>
             <View className='des'>
               <Text>这些朋友也将进入派对</Text>
             </View>
             <View className='content'>
-              <OpenData type='userAvatarUrl' />
+              {
+                CreateUserInfo()
+              }
             </View>
           </View>
           <View className='bottom'>

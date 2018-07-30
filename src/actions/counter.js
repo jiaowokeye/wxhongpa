@@ -34,3 +34,9 @@ export const saveUserId = (userid) => {
   }
 }
 
+export const saveRoomId = (roomid) => {
+  return {
+    type: Constants.ROOMID,
+    ROOM_ID:roomid
+  }
+}

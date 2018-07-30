@@ -31,6 +31,21 @@ export default class SSS extends Component {
 
   componentDidMount () {
     console.log(this.props.counter.GROUP_INFO);//1-红  2-白
+    Taro.connectSocket({
+      url: 'wss://application.idaowei.com:9092/',
+      data:{
+        x: '',
+        y: ''
+      },
+      header:{
+        'content-type': 'application/json'
+      },
+      protocols: ['protocol1'],
+      method:"GET"
+    })
+    Taro.onSocketOpen(function(res) {
+      console.log('WebSocket连接已打开！')
+    })
   }
 
   componentWillUnmount () { }

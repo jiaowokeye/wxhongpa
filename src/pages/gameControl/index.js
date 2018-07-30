@@ -1,8 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View ,Image} from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from './bg.png'
 import CoverImg from './0_03.png'
+@connect(({ counter }) => ({
+  counter
+}), (dispatch) => ({
+
+}))
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '游戏'
@@ -26,6 +32,7 @@ export default class Index extends Component {
     this.setState({
       visible:true
     })
+
   }
   //隐藏弹出层
   hideCover = ()=>{
@@ -35,7 +42,22 @@ export default class Index extends Component {
   }
   //确认退出派对
   handleOk = ()=>{
-
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic.do?close',
+      data: {
+        room_id:this.props.counter.ROOM_ID
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res)=> {
+        this.setState({
+          visible:false
+        })
+        Taro.navigateTo({
+          url: './../index/index'
+        })
+      }})
   }
   //前往游戏规则
   toGameRule=(type)=>{

@@ -52,6 +52,40 @@ export default class Index extends Component {
   }
   //进入游戏
   enterGame=()=>{
+    let TelReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if(this.state.name==""){
+      Taro.showModal({
+        title: '提示',
+        content: '请先填写用户昵称',
+        showCancel:false,
+        success: function(res) {
+
+        }
+      })
+      return;
+    }
+    if(!TelReg.test(this.state.tel)){
+      Taro.showModal({
+        title: '提示',
+        content: '用户手机号输入错误',
+        showCancel:false,
+        success: function(res) {
+
+        }
+      })
+      return;
+    }
+    if(this.state.code==''){
+      Taro.showModal({
+        title: '提示',
+        content: '请输入验证码',
+        showCancel:false,
+        success: function(res) {
+
+        }
+      })
+      return;
+    }
     Taro.request({
       url: 'https://application.idaowei.com/party/user/basic.do?login',
       data: {
@@ -64,12 +98,12 @@ export default class Index extends Component {
       success: function(res) {
 
       }}).then((res)=>{
-
+        //应该写到success里
+        Taro.navigateTo({
+          url: './../InitiateParty/index'
+        })
     });
-    //应该写到success里
-    Taro.navigateTo({
-      url: './../InitiateParty/index'
-    })
+
   }
   //隐藏遮遭层
   hideCover = ()=>{
@@ -119,8 +153,8 @@ export default class Index extends Component {
         'content-type': 'application/json'
       },
       //成功store保存user_id
-      success: function(res) {
-        this.props.saveUserId(res.data);
+      success: (res)=> {
+        this.props.saveUserId(res.data.data);
       },
       fail:(res)=>{
         //失败提示网络错误
@@ -129,16 +163,13 @@ export default class Index extends Component {
           content: '网络错误！',
           showCancel:false,
           success: function(res) {
-              
+
           }
         })
       }
     }).then((res)=>{
         this.sendCodeRequest();
     });
-      //测试用 直接设置user_id为4  发送验证码
-      this.props.saveUserId(4);
-      this.sendCodeRequest();
   }
   //发送验证码
   sendCodeRequest = ()=>{
@@ -147,20 +178,32 @@ export default class Index extends Component {
       data: {
         user_id:this.props.counter.USER_ID,
         nickname:this.state.name,
-        phone:this.state.tels
+        phone:this.state.tel
       },
       header: {
         'content-type': 'application/json'
       },
       success: function(res) {
-        Taro.showModal({
-          title: '提示',
-          content: '短信发送成功，请注意接收',
-          showCancel:false,
-          success: function(res) {
-            
-          }
-        })
+        if(res.data.result==1){
+          Taro.showModal({
+            title: '提示',
+            content: '验证码发送成功，请注意接收',
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }else{
+          Taro.showModal({
+            title: '提示',
+            content: '验证码发送失败',
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }
+
       }});
   }
   componentDidHide () {

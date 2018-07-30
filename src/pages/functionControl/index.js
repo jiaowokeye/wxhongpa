@@ -41,6 +41,31 @@ export default class Index extends Component {
       default:
           break;
     }
+    Taro.connectSocket({
+      url: 'wss://application.idaowei.com/websocket',
+      data:{
+        x: '',
+        y: ''
+      },
+      header:{
+        'content-type': 'application/json'
+      },
+      protocols: ['protocol1'],
+      method:"GET",
+      success:(res)=>{
+        console.log(res);
+        Taro.onSocketOpen(function(res) {
+          console.log('WebSocket连接已打开！');
+          Taro.sendSocketMessage({
+            data:'翟科向你扔出了一条狗'
+          })
+        })
+
+      },
+      fail:()=>{
+
+      }
+    })
 
   }
   //开始

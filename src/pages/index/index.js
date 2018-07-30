@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View,Image,CoverView,CoverImage,Button} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { changeIndentityType,saveOpenid,savePhoto } from '../../actions/counter'
+import { changeIndentityType,saveOpenid,savePhoto,saveRoomId,saveUserId ,changeGroupType} from '../../actions/counter'
 import Cover1Img from "./cover1.png"
 import Cover2Img from "./cover2.png"
 import BgImg from "./bg-index.png"
@@ -17,6 +17,16 @@ import './index.scss'
   },
   savePhoto(url){
     dispatch(savePhoto(url))
+  },
+  saveRoomId(room_id){
+    dispatch(saveRoomId(room_id))
+  }
+  ,
+  saveUserId(user_id){
+    dispatch(saveUserId(user_id))
+  },
+  changeGroupType(type){
+    dispatch(changeGroupType(type))
   }
 }))
 
@@ -48,23 +58,66 @@ export default class Index extends Component {
         header: {
           'content-type': 'application/json'
         },
-        success: function(res) {
-          this.props.saveOpenid(res.data.openid);
+        success: (res)=> {
+          let openId = '';
+          try{
+            openId = JSON.parse(res.data.data).openid;
+          }catch(err){
 
+          }
+          this.props.saveOpenid(openId);
         }}).then((res)=>{
           Taro.request({
-            url: 'https://application.idaowei.com/party/user/basic.do?validate&open_id='+res.data.openid,
+            url: 'https://application.idaowei.com/party/user/basic.do?validate&open_id='+JSON.parse(res.data.data).openid,
             data: {},
             header: {
               'content-type': 'application/json'
             },
             //验证用户完了处理  看是否在房间 跳转
-            success: function(res) {
-              
+            success: (res)=> {
+              if(res.data.result!==1){
+
+              }else{
+                if(res.data.data.isActive){
+                  this.props.saveRoomId(res.data.data.roomId);
+                  this.props.saveUserId(res.data.data.userId);
+
+                  switch (res.data.data.type){
+                    case 3:
+                        this.props.changeIndentityType(2);
+                        Taro.navigateTo({
+                          url: './../gameControl/index'
+                        })
+                        break;
+                    case 2:
+                        this.props.changeIndentityType(1);
+                        this.props.changeGroupType(2);
+                        Taro.navigateTo({
+                          url: './../realTime/index'
+                        })
+                        break;
+                    case 1:
+                        this.props.changeIndentityType(1);
+                        this.props.changeGroupType(1);
+                        Taro.navigateTo({
+                          url: './../realTime/index'
+                        })
+                        break;
+                  }
+
+                  if(res.data.data.type==3){//裁判
+
+                    if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍积分页面
+
+                    }else{//裁判身份点确认，进去游戏控制中心
+
+                    }
+                  }
+                }
+              }
 
             }})
       });
-      this.props.saveOpenid('oJn1_4q9mpiqEyXWTn93ua5s2XbA');
     }).then(()=>{
       //获取用户信息 存入store
       Taro.getUserInfo({
