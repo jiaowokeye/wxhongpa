@@ -53,8 +53,10 @@ export default class Index extends Component {
       //通过res.code 去后台取openid
       //然后 this.props.saveOpenid(openid); 、、存到store
       Taro.request({
-        url: 'https://application.idaowei.com/party/user/basic.do?getOpenId&code='+res.code,
-        data: {},
+        url: 'http://application.idaowei.com:8080/party/user/basic/getOpenId',
+        data: {
+          code:res.code
+        },
         header: {
           'content-type': 'application/json'
         },
@@ -68,8 +70,8 @@ export default class Index extends Component {
           this.props.saveOpenid(openId);
         }}).then((res)=>{
           Taro.request({
-            url: 'https://application.idaowei.com/party/user/basic.do?validate&open_id='+JSON.parse(res.data.data).openid,
-            data: {},
+            url: 'http://application.idaowei.com:8080/party/user/basic/validate',
+            data: {open_id:JSON.parse(res.data.data).openid},
             header: {
               'content-type': 'application/json'
             },

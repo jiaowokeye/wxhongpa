@@ -22,6 +22,11 @@
     justify-content:center;
     font-size: 94px;
     color:#fff;
+    .font-icon{
+      width: 80px;
+      height: 80px;
+      background-size: 80px;
+    }
   }
   .white{
     width:267px;
@@ -33,6 +38,11 @@
     justify-content:center;
     font-size: 94px;
     color:#aa2d2d;
+    .font-icon{
+      width:80px;
+      height:80px;
+      background-size: 80px;
+    }
   }
   .types1{
     @include flexParent;
@@ -65,11 +75,15 @@
         }
 
         .group{
-          font-size: 146px;
+          image{
+            width:146px;
+            height: 146px;
+          }
+
         }
 
         .scope{
-          font-size: 150px;
+
         }
 
       }
@@ -89,18 +103,26 @@
     z-index: 10;
     flex: 1;
     .top{
-      flex: 1;
+      flex: 3;
       @include flexParent;
       align-items: center;
       justify-content: center;
       font-size: 106px;
     }
     .middle{
-      flex: 2;
+      flex:1;
       @include flexParent;
-      align-items: center;
-      justify-content: center;
-      font-size: 147px;
+      align-items: flex-end;
+      justify-content:center ;
+      .font-icon{
+        width: 131px;
+        height:168px;
+      }
+      .fontDian{
+        width: 50px;
+        height: 39px;
+        background-size: 50px 39px;
+      }
     }
     .bottom{
       flex: 3;

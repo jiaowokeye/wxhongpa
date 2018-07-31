@@ -67,7 +67,7 @@ export default class SSS extends Component {
   //验证密码
   checkRoom = ()=>{
     Taro.request({
-      url: 'https://application.idaowei.com/party/room/basic.do?check',
+      url: 'http://application.idaowei.com:8080/party/room/basic/check',
       data: {
         password:this.state.password
       },
@@ -98,7 +98,7 @@ export default class SSS extends Component {
   //新建房间
   addRoom = ()=>{
     Taro.request({
-      url: 'https://application.idaowei.com/party/room/basic.do?add',
+      url: 'http://application.idaowei.com:8080/party/room/basic/add',
       data: {
         user_id:this.props.counter.USER_ID,
         password:this.state.password
@@ -119,10 +119,10 @@ export default class SSS extends Component {
         }else{
           this.setState({
             room_id:res.data.data,
-            step:3
+            step:2
           })
           setTimeout(()=>{
-            this.getInfoById();
+            this.enterGame();
           },200)
         }
       }})
@@ -130,7 +130,7 @@ export default class SSS extends Component {
   //获取房间信息
   getInfoById = ()=>{
     Taro.request({
-      url: 'https://application.idaowei.com/party/room/basic.do?findById',
+      url: 'http://application.idaowei.com:8080/party/room/basic/findById',
       data: {
         room_id:this.state.room_id
       },
@@ -153,7 +153,7 @@ export default class SSS extends Component {
       }}).then((res)=>{
         //获取房间成员信息
         Taro.request({
-          url: 'https://application.idaowei.com/party/room/user.do?query',
+          url: 'http://application.idaowei.com:8080/party/room/user/query',
           data: {
             room_id:this.state.room_id,
             type:0
@@ -195,7 +195,7 @@ export default class SSS extends Component {
     }
     //获取房间成员信息
     Taro.request({
-      url: 'https://application.idaowei.com/party/room/user.do?enter',
+      url: 'http://application.idaowei.com:8080/party/room/user/enter',
       data: {
         room_id:this.state.room_id,
         user_id:this.props.counter.USER_ID,
@@ -228,8 +228,7 @@ export default class SSS extends Component {
             })
           }
         }
-      }}).then(()=>{
-    })
+      }})
   }
   //改变密码事件
   changePassWord = (e)=>{

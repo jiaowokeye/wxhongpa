@@ -43,7 +43,7 @@ export default class Index extends Component {
   //确认退出派对
   handleOk = ()=>{
     Taro.request({
-      url: 'https://application.idaowei.com/party/room/basic.do?close',
+      url: 'http://application.idaowei.com:8080/party/room/basic/close',
       data: {
         room_id:this.props.counter.ROOM_ID
       },

@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from "./bg.png"
 import Scope1 from "./scope1.png"
+import GameRuleData from './../../gameData/index'
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
@@ -15,7 +16,8 @@ export default class SSS extends Component {
   }
   state = {
     scope:0,
-    visible:true
+    visible:false,
+    type:false
   }
   showCover = ()=>{
     this.setState({
@@ -32,7 +34,7 @@ export default class SSS extends Component {
   componentDidMount () {
     console.log(this.props.counter.GROUP_INFO);//1-红  2-白
     Taro.connectSocket({
-      url: 'wss://application.idaowei.com:9092/',
+      url: 'ws://application.idaowei.com:8080/party/websocket',
       data:{
         x: '',
         y: ''
@@ -40,11 +42,46 @@ export default class SSS extends Component {
       header:{
         'content-type': 'application/json'
       },
-      protocols: ['protocol1'],
-      method:"GET"
-    })
-    Taro.onSocketOpen(function(res) {
-      console.log('WebSocket连接已打开！')
+      protocols: [],
+      method:"GET",
+      success:(res)=>{
+        console.log(res);
+        Taro.onSocketOpen(function(res) {
+          console.log('WebSocket连接已打开！');
+          //发送一条注册
+          Taro.sendSocketMessage({
+            data:JSON.stringify({
+              resourceType:1,
+              userId:this.props.counter.USER_ID,
+              roomId:this.props.counter.ROOM_ID,
+              data:""
+            }),
+            success:()=>{
+            }})
+          Taro.onSocketMessage(function(res) {
+            console.log('收到服务器内容：' + res.data);
+            let results = JSON.parse(res.data);
+            if(results.resourceType==2){//分数
+              this.setState({
+                visible:false,
+                scope:results.data[this.props.counter.GROUP_INFO]
+              })
+            }else if(results.resourceType==3){//同步规则
+              this.setState({
+                visible:true,
+                type:results.data
+              })
+            }
+          })
+        })
+        Taro.onSocketClose(function(res) {
+          console.log('WebSocket 已关闭！')
+        })
+
+      },
+      fail:()=>{
+
+      }
     })
   }
 
@@ -61,8 +98,7 @@ export default class SSS extends Component {
     let groupClassName=this.props.counter.GROUP_INFO==1?"red":"white";
     let teamInfoText = this.props.counter.GROUP_INFO==1?"红队":"白队";
     let coverClassName = this.state.visible?"cover-control":"cover-control hide";
-    let des = "在一张桌子上，排列20个一次性杯子.\n给到玩家一个气球,玩家需要\n通过吹气球，再把气球里的\n气对向杯子，把杯子吹到地上.\n在最短时间内将所有杯子\n吹到地上的获胜";
-    let prop = "所需道具\n小红杯*20\n气球*2\n秒表*1";
+    let ruleDate = GameRuleData[this.state.type];
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -77,13 +113,13 @@ export default class SSS extends Component {
         <View  className={coverClassName}>
           <View className='cover-content'>
             <View className='cover-close' onClick={this.hideCover}></View>
-            <View className='cover-title'>倾囊相吹</View>
+            <View className='cover-title'>{ruleDate.title}</View>
             <View className='cover-rule'>游戏规则</View>
             <View className='cover-des'>
-              <Text>{des}</Text>
+              <Text>{ruleDate.des}</Text>
             </View>
             <View className='cover-prop'>
-              <Text>{prop}</Text>
+              <Text>{ruleDate.prop}</Text>
             </View>
           </View>
         </View>

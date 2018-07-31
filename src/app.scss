@@ -1,0 +1,56 @@
+@import "./components/public/reset";
+
+
+.font0{
+  background: url($imgurl + "0.png") no-repeat;
+}
+
+.font1{
+  background: url($imgurl + "1.png") no-repeat;
+}
+.font2{
+  background: url($imgurl + "2.png") no-repeat;
+}
+.font3{
+  background: url($imgurl + "3.png") no-repeat;
+}
+.font4{
+  background: url($imgurl + "4.png") no-repeat;
+}
+.font5{
+  background: url($imgurl + "5.png") no-repeat;
+}
+.font6{
+  background: url($imgurl + "6.png") no-repeat;
+}
+.font7{
+  background: url($imgurl + "7.png") no-repeat;
+}
+.font8{
+  background: url($imgurl + "8.png") no-repeat;
+}
+.font9{
+  background: url($imgurl + "9.png") no-repeat;
+}
+
+.font-icon{
+  width: 121px;
+  height:161px;
+  background-size: 121px 161px;
+  background-position: center;
+}
+
+.fontAdd{
+  background: url($imgurl + "add.png") no-repeat;
+}
+.fontSub{
+  background: url($imgurl + "sub.png") no-repeat;
+}
+.fontDian{
+  background: url($imgurl + "circle.png") no-repeat;
+}
+.fontMao{
+  background: url($imgurl + "mao.png") no-repeat;
+}
+
+

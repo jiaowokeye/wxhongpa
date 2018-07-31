@@ -87,7 +87,7 @@ export default class Index extends Component {
       return;
     }
     Taro.request({
-      url: 'https://application.idaowei.com/party/user/basic.do?login',
+      url: 'http://application.idaowei.com:8080/party/user/basic/login',
       data: {
         user_id:this.props.counter.USER_ID,
         login_code:this.state.code
@@ -96,14 +96,22 @@ export default class Index extends Component {
         'content-type': 'application/json'
       },
       success: function(res) {
+        if(res.data.result!==1){
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel:false,
+            success: function(res) {
 
-      }}).then((res)=>{
-        //应该写到success里
-        Taro.navigateTo({
-          url: './../InitiateParty/index'
-        })
-    });
-
+            }
+          })
+        }else{
+          //应该写到success里
+          Taro.navigateTo({
+            url: './../InitiateParty/index'
+          })
+        }
+      }})
   }
   //隐藏遮遭层
   hideCover = ()=>{
@@ -143,7 +151,7 @@ export default class Index extends Component {
     }
     //先去创建一个用户
     Taro.request({
-      url: 'https://application.idaowei.com/party/user/basic.do?add',
+      url: 'http://application.idaowei.com:8080/party/user/basic/add',
       data: {
         open_id:this.props.counter.OPEN_ID,
         nickname:this.state.name,
@@ -174,7 +182,7 @@ export default class Index extends Component {
   //发送验证码
   sendCodeRequest = ()=>{
     Taro.request({
-      url: 'https://application.idaowei.com/party/user/basic.do?sendCode',
+      url: 'http://application.idaowei.com:8080/party/user/basic/sendCode',
       data: {
         user_id:this.props.counter.USER_ID,
         nickname:this.state.name,
