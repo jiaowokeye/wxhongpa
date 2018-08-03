@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View} from '@tarojs/components'
+import { View,Navigator} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from "./bg.png"
@@ -12,13 +12,14 @@ import GameRuleData from './../../gameData/index'
 }))
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: '游戏'
+    navigationBarTitleText: '游戏',
+    navigationStyle:"default"
   }
   componentWillMount () { }
 
   componentDidMount () {
     Taro.connectSocket({
-      url: 'ws://application.idaowei.com:8080/party/websocket',
+      url: 'wss://application.idaowei.com/party/websocket',
       data:{
         x: '',
         y: ''
@@ -48,7 +49,9 @@ export default class Index extends Component {
     })
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount () {
+    Taro.closeSocket();
+  }
 
   componentDidShow () {
 
@@ -85,6 +88,7 @@ export default class Index extends Component {
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
+        <Navigator className='returnPre' open-type='navigateBack'><View className='fontReturn'/></Navigator>
         <View className="team-info">
           <View className={groupClassName}>{ruleDate.title}</View>
         </View>

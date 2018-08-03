@@ -53,7 +53,7 @@ export default class Index extends Component {
       //通过res.code 去后台取openid
       //然后 this.props.saveOpenid(openid); 、、存到store
       Taro.request({
-        url: 'http://application.idaowei.com:8080/party/user/basic/getOpenId',
+        url: 'https://application.idaowei.com/party/user/basic/getOpenId',
         data: {
           code:res.code
         },
@@ -70,7 +70,7 @@ export default class Index extends Component {
           this.props.saveOpenid(openId);
         }}).then((res)=>{
           Taro.request({
-            url: 'http://application.idaowei.com:8080/party/user/basic/validate',
+            url: 'https://application.idaowei.com/party/user/basic/validate',
             data: {open_id:JSON.parse(res.data.data).openid},
             header: {
               'content-type': 'application/json'
@@ -87,21 +87,21 @@ export default class Index extends Component {
                   switch (res.data.data.type){
                     case 3:
                         this.props.changeIndentityType(2);
-                        Taro.navigateTo({
+                        Taro.redirectTo({
                           url: './../gameControl/index'
                         })
                         break;
                     case 2:
                         this.props.changeIndentityType(1);
                         this.props.changeGroupType(2);
-                        Taro.navigateTo({
+                        Taro.redirectTo({
                           url: './../realTime/index'
                         })
                         break;
                     case 1:
                         this.props.changeIndentityType(1);
                         this.props.changeGroupType(1);
-                        Taro.navigateTo({
+                        Taro.redirectTo({
                           url: './../realTime/index'
                         })
                         break;
@@ -194,17 +194,17 @@ export default class Index extends Component {
           </View>
         </View>
 
-        <CoverView  className={coverClassName}>
-          <CoverView className='cover-content'>
-            <CoverImage className='cover-img' src={coverImg} />
-            <CoverView className='button' style='left:0'>
-              <CoverView onClick={this.hideCover}>取消</CoverView>
-            </CoverView>
-            <CoverView className='button'>
-              <CoverView onClick={this.handleOk}>确定</CoverView>
-            </CoverView>
-          </CoverView>
-        </CoverView>
+        <View  className={coverClassName}>
+          <View className='cover-content'>
+            <Image className='cover-img' src={coverImg} />
+            <View className='button' style='left:0'>
+              <View onClick={this.hideCover}>取消</View>
+            </View>
+            <View className='button'>
+              <View onClick={this.handleOk}>确定</View>
+            </View>
+          </View>
+        </View>
 
       </View>
     )

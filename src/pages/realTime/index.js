@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View,Image,CoverView} from '@tarojs/components'
+import { View,Image} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import './index.scss'
 import BgImg from "./bg.png"
@@ -12,7 +12,8 @@ import GameRuleData from './../../gameData/index'
 }))
 export default class SSS extends Component {
   config = {
-    navigationBarTitleText: '游戏'
+    navigationBarTitleText: '游戏',
+    navigationStyle:"default"
   }
   state = {
     scope:0,
@@ -34,7 +35,7 @@ export default class SSS extends Component {
   componentDidMount () {
     console.log(this.props.counter.GROUP_INFO);//1-红  2-白
     Taro.connectSocket({
-      url: 'ws://application.idaowei.com:8080/party/websocket',
+      url: 'wss://application.idaowei.com/party/websocket',
       data:{
         x: '',
         y: ''
@@ -46,7 +47,7 @@ export default class SSS extends Component {
       method:"GET",
       success:(res)=>{
         console.log(res);
-        Taro.onSocketOpen(function(res) {
+        Taro.onSocketOpen((res)=> {
           console.log('WebSocket连接已打开！');
           //发送一条注册
           Taro.sendSocketMessage({
@@ -58,23 +59,27 @@ export default class SSS extends Component {
             }),
             success:()=>{
             }})
-          Taro.onSocketMessage(function(res) {
+          Taro.onSocketMessage((res)=> {
             console.log('收到服务器内容：' + res.data);
             let results = JSON.parse(res.data);
             if(results.resourceType==2){//分数
               this.setState({
                 visible:false,
-                scope:results.data[this.props.counter.GROUP_INFO]
+                scope:JSON.parse(results.data)[this.props.counter.GROUP_INFO]
               })
             }else if(results.resourceType==3){//同步规则
               this.setState({
                 visible:true,
                 type:results.data
               })
+            }else if(results.resourceType==4){//退出房间
+              Taro.reLaunch({
+                url: './../index/index'
+              })
             }
           })
         })
-        Taro.onSocketClose(function(res) {
+        Taro.onSocketClose((res)=> {
           console.log('WebSocket 已关闭！')
         })
 
@@ -83,9 +88,45 @@ export default class SSS extends Component {
 
       }
     })
+    this.getInfoById();
   }
+  //获取房间信息
+  getInfoById = ()=> {
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic/findById',
+      data: {
+        room_id: this.props.counter.ROOM_ID
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res) => {
+        if (res.data.result !== 1) {
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel: false,
+            success: function (res) {
 
-  componentWillUnmount () { }
+            }
+          })
+        } else {
+
+          try {
+            let score = JSON.parse(res.data.data.score);
+            console.log(score[this.props.counter.GROUP_INFO]);
+            this.setState({
+              scope:score[this.props.counter.GROUP_INFO]
+            })
+          }catch (err){
+
+          }
+          console.log();
+
+        }
+      }
+    })
+  }
 
   componentDidShow () {
 
@@ -99,6 +140,7 @@ export default class SSS extends Component {
     let teamInfoText = this.props.counter.GROUP_INFO==1?"红队":"白队";
     let coverClassName = this.state.visible?"cover-control":"cover-control hide";
     let ruleDate = GameRuleData[this.state.type];
+    let scope = String(this.state.scope).split("");
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -107,8 +149,12 @@ export default class SSS extends Component {
         </View>
         <View className='team-real'>实时积分</View>
         <View className='scope'>
-          {/*{this.state.scope}*/}
-          <Image src={Scope1} />
+          {
+            scope.map((e,i)=>{
+              let className = "font-icon font"+e;
+              return (<Image className={className} key={i}/>)
+            })
+          }
         </View>
         <View  className={coverClassName}>
           <View className='cover-content'>

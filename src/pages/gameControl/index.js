@@ -11,7 +11,7 @@ import CoverImg from './0_03.png'
 }))
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: '游戏'
+    navigationBarTitleText: '游戏',
   }
   state={
     visible:false
@@ -19,13 +19,67 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
+    this.newWebSocket();
+  }
+  newWebSocket = ()=>{
+    Taro.connectSocket({
+      url: 'wss://application.idaowei.com/party/websocket',
+      data:{
+        x: '',
+        y: ''
+      },
+      header:{
+        'content-type': 'application/json'
+      },
+      protocols: [],
+      method:"GET",
+      success:(res)=>{
+        Taro.onSocketOpen((res)=>{
+          this.state.isConnectSocket = true;
+          console.log('WebSocket连接已打开！');
+          console.log({
+            resourceType:1,
+            userId:this.props.counter.USER_ID,
+            roomId:this.props.counter.ROOM_ID,
+            data:""
+          });
+          Taro.sendSocketMessage({
+            data:JSON.stringify({
+              resourceType:1,
+              userId:this.props.counter.USER_ID,
+              roomId:this.props.counter.ROOM_ID,
+              data:""
+            }),
+            success:()=>{
+            }})
+          Taro.onSocketMessage((res)=> {
+            console.log('收到服务器内容：' + res.data)
+          })
+        })
 
+        Taro.onSocketClose((res) =>{
+          console.log('WebSocket 已关闭！');
+          this.setState({
+            isConnectSocket:false
+          })
+        })
+
+      },
+      fail:()=>{
+
+      }
+    })
+  }
+  componentWillUnmount () {
+    Taro.closeSocket();
   }
 
-  componentWillUnmount () { }
-
   componentDidShow () {
+    this.newWebSocket();
+  }
 
+  componentDidHide () {
+    Taro.closeSocket();
   }
    //点击退出派对
   leaveParty = ()=>{
@@ -43,7 +97,7 @@ export default class Index extends Component {
   //确认退出派对
   handleOk = ()=>{
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/room/basic/close',
+      url: 'https://application.idaowei.com/party/room/basic/close',
       data: {
         room_id:this.props.counter.ROOM_ID
       },
@@ -51,22 +105,49 @@ export default class Index extends Component {
         'content-type': 'application/json'
       },
       success: (res)=> {
-        this.setState({
-          visible:false
-        })
-        Taro.navigateTo({
-          url: './../index/index'
-        })
+        if(res.data.result==1){
+          this.setState({
+            visible:false
+          })
+          //通知玩家退出房间
+          Taro.sendSocketMessage({
+            data:JSON.stringify({
+              resourceType:4,
+              userId:this.props.counter.USER_ID,
+              roomId:this.props.counter.ROOM_ID,
+              data:""
+            }),
+            success:()=>{
+              setTimeout(()=>{
+                Taro.reLaunch({
+                  url: './../index/index'
+                })
+              },2000)
+            }
+          })
+        }else{
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel:false,
+            success: function(res) {
+
+            }
+          })
+        }
+
       }})
   }
   //前往游戏规则
   toGameRule=(type)=>{
+    Taro.closeSocket();
     Taro.navigateTo({
       url: './../gameRule/index?type='+type
     })
   }
   //前往功能页面  计分器  秒表   倒计时
   toFunctionControl = (type)=>{
+    Taro.closeSocket();
     Taro.navigateTo({
       url: './../functionControl/index?type='+type
     })

@@ -19,17 +19,23 @@ export default class SSS extends Component {
     step:1,  //1发起或者加入派对按钮   2-输入数字  3-等人满然后进入游戏
     userInfo:{},
     hasUserInfo:false,
-    password:"····",
+    password:"",
     focus:false,
     room_id:"",
-    user:[{head_photo:"https://wx.qlogo.cn/mmopen/vi_32/ykGRcou2PxlBThyWcrkoJ14ubQ6eiaaOzK8bm6ADaox1pCmkln1d3znSGhVXghIePMnDKFDY4kOUTVNZTG8kgPw/132"}]
+    user:[]
   }
 
   componentDidMount () {
       let [code,openid] = ["",""];
       console.log(this.props.counter.IDENTITY_TYPE);//玩家身份 1-玩家 2-裁判
       this.setState({
-        step:1
+        step:1,
+        userInfo:{},
+        hasUserInfo:false,
+        password:"",
+        focus:false,
+        room_id:"",
+        user:[]
       })
   }
   changeStep=(step)=>{
@@ -44,7 +50,8 @@ export default class SSS extends Component {
       case 2:
           this.setState({
             step:step,
-            focus:true
+            focus:true,
+            password:""
           })
           break;
       case 3:
@@ -67,7 +74,7 @@ export default class SSS extends Component {
   //验证密码
   checkRoom = ()=>{
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/room/basic/check',
+      url: 'https://application.idaowei.com/party/room/basic/check',
       data: {
         password:this.state.password
       },
@@ -76,12 +83,15 @@ export default class SSS extends Component {
       },
       success: (res)=> {
         if(res.data.result!==1){
+          this.setState({
+            password:"",
+          })
           Taro.showModal({
             title: '提示',
             content: res.data.message,
             showCancel:false,
             success: (res) =>{
-
+              this.changeStep(2);
             }
           })
         }else{
@@ -98,7 +108,7 @@ export default class SSS extends Component {
   //新建房间
   addRoom = ()=>{
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/room/basic/add',
+      url: 'https://application.idaowei.com/party/room/basic/add',
       data: {
         user_id:this.props.counter.USER_ID,
         password:this.state.password
@@ -130,7 +140,7 @@ export default class SSS extends Component {
   //获取房间信息
   getInfoById = ()=>{
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/room/basic/findById',
+      url: 'https://application.idaowei.com/party/room/basic/findById',
       data: {
         room_id:this.state.room_id
       },
@@ -153,7 +163,7 @@ export default class SSS extends Component {
       }}).then((res)=>{
         //获取房间成员信息
         Taro.request({
-          url: 'http://application.idaowei.com:8080/party/room/user/query',
+          url: 'https://application.idaowei.com/party/room/user/query',
           data: {
             room_id:this.state.room_id,
             type:0
@@ -195,7 +205,7 @@ export default class SSS extends Component {
     }
     //获取房间成员信息
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/room/user/enter',
+      url: 'https://application.idaowei.com/party/room/user/enter',
       data: {
         room_id:this.state.room_id,
         user_id:this.props.counter.USER_ID,
@@ -219,11 +229,11 @@ export default class SSS extends Component {
           //然后跳转
           this.props.saveRoomId(this.state.room_id);
           if(this.props.counter.IDENTITY_TYPE==1){//玩家身份点确认 进去选队伍积分页面
-            Taro.navigateTo({
+            Taro.reLaunch({
               url: './../realTime/index'
             })
           }else{//裁判身份点确认，进去游戏控制中心
-            Taro.navigateTo({
+            Taro.reLaunch({
               url: './../gameControl/index'
             })
           }
@@ -234,7 +244,6 @@ export default class SSS extends Component {
   changePassWord = (e)=>{
     let value = e.target.value;
     if(value.length<4){
-      value = value + "····".substr(value.length,4);
       this.setState({
         password:value
       })
@@ -255,15 +264,20 @@ export default class SSS extends Component {
       focus:false
     })
   }
-
+  returnEvent = ()=>{
+    this.changeStep(this.state.step-1);
+  }
   render () {
     let partyText = this.props.counter.IDENTITY_TYPE==1?"进入":"发起";
     let step1ClassName = this.state.step==1?"step1":"hide";
     let step2ClassName = this.state.step==2?"step2":"hide";
     let step3ClassName = this.state.step==3?"step3":"hide";
+    let returnButtonClassName = this.state.step==1?'returnPre hide':'returnPre';
+    let showNum = this.state.password + "····".substr(this.state.password.length,4);
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
+        <View className={returnButtonClassName} onClick={this.returnEvent}><View className='fontReturn'/></View>
         <View className={step1ClassName}>
           <View className='party-button' onClick={this.changeStep.bind(this,2)}>
             <Text>{partyText+"\n派对"}</Text>
@@ -276,8 +290,8 @@ export default class SSS extends Component {
               <Text>和身边的朋友输入同样的四个数字, \n进入同一场派对</Text>
             </View>
             <View className='content'>
-                <Input type='number' onBlur={this.onBlur} onInput={this.changePassWord} focus={this.state.focus} confirm-hold={true}/>
-                <View onClick={this.changeStep.bind(this,2)}>{this.state.password}</View>
+                  <Input ref='input' type='number' onBlur={this.onBlur} value={this.state.password} onInput={this.changePassWord} focus={this.state.focus} confirm-hold={true}/>
+                <View onClick={this.changeStep.bind(this,2)}>{showNum}</View>
             </View>
           </View>
         </View>

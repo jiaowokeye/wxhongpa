@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 import { saveUserId } from '../../actions/counter'
 import './index.scss'
 import BgImg from "./bg.png"
+let Time1 = null;
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
@@ -19,7 +20,9 @@ export default class Index extends Component {
     name:"",
     tel:"",
     code:"",
-    visible:false
+    visible:false,
+    time:60,
+    isSend:false
   }
   componentWillMount () { }
 
@@ -87,7 +90,7 @@ export default class Index extends Component {
       return;
     }
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/user/basic/login',
+      url: 'https://application.idaowei.com/party/user/basic/login',
       data: {
         user_id:this.props.counter.USER_ID,
         login_code:this.state.code
@@ -126,6 +129,9 @@ export default class Index extends Component {
     })
   }
   sendCode = ()=>{
+    if(this.state.isSend){
+      return;
+    }
     let TelReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if(this.state.name==""){
       Taro.showModal({
@@ -151,7 +157,7 @@ export default class Index extends Component {
     }
     //先去创建一个用户
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/user/basic/add',
+      url: 'https://application.idaowei.com/party/user/basic/add',
       data: {
         open_id:this.props.counter.OPEN_ID,
         nickname:this.state.name,
@@ -181,8 +187,9 @@ export default class Index extends Component {
   }
   //发送验证码
   sendCodeRequest = ()=>{
+
     Taro.request({
-      url: 'http://application.idaowei.com:8080/party/user/basic/sendCode',
+      url: 'https://application.idaowei.com/party/user/basic/sendCode',
       data: {
         user_id:this.props.counter.USER_ID,
         nickname:this.state.name,
@@ -191,16 +198,22 @@ export default class Index extends Component {
       header: {
         'content-type': 'application/json'
       },
-      success: function(res) {
+      success: (res)=> {
         if(res.data.result==1){
-          Taro.showModal({
-            title: '提示',
-            content: '验证码发送成功，请注意接收',
-            showCancel:false,
-            success: function(res) {
-
-            }
+          // Taro.showModal({
+          //   title: '提示',
+          //   content: '验证码发送成功，请注意接收',
+          //   showCancel:false,
+          //   success: function(res) {
+          //
+          //   }
+          // })
+          this.setState({
+            isSend:true
           })
+          Time1 =  setInterval(()=>{
+            this.changeTime();
+          },1000)
         }else{
           Taro.showModal({
             title: '提示',
@@ -214,11 +227,25 @@ export default class Index extends Component {
 
       }});
   }
+  changeTime = ()=>{
+    if(this.state.time>0){
+      this.setState({
+        time:this.state.time-1
+      })
+    }else{
+      clearInterval(Time1);
+      this.setState({
+        time:60,
+        isSend:false
+      })
+    }
+  }
   componentDidHide () {
 
   }
   render () {
     let coverClassName = this.state.visible?"cover-control":"hide";
+    let codeText = this.state.isSend?this.state.time+'秒':"获取验证码";
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
@@ -230,16 +257,19 @@ export default class Index extends Component {
 
           <View className="form-group">
             <View>昵称</View>
-            <Input type='text' onChange={this.changeName} />
+            <Input type='text' onInput={this.changeName} />
           </View>
           <View className="form-group">
             <View>手机号</View>
-            <Input type="number" onChange={this.changeTel} />
+            <Input type="number" onInput={this.changeTel} />
           </View>
           <View className="form-group">
             <View>验证码</View>
             <View className='code'>
-              <Input type="text" onChange={this.changeCode} /><Text onClick={this.sendCode}>获取验证码</Text>
+              <Input type="text" onInput={this.changeCode} />
+              <Text onClick={this.sendCode}>
+                {codeText}
+              </Text>
             </View>
           </View>
         </View>

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View} from '@tarojs/components'
+import { View,Navigator} from '@tarojs/components'
 import './index.scss'
 import { connect } from '@tarojs/redux'
 import BgImg from "./bg.png"
@@ -23,10 +23,48 @@ export default class Index extends Component {
     second:0,
     isConnectSocket:false
   }
+  //获取房间信息
+  getInfoById = ()=> {
+    Taro.request({
+      url: 'https://application.idaowei.com/party/room/basic/findById',
+      data: {
+        room_id: this.props.counter.ROOM_ID
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: (res) => {
+        if (res.data.result !== 1) {
+          Taro.showModal({
+            title: '提示',
+            content: res.data.message,
+            showCancel: false,
+            success: function (res) {
+
+            }
+          })
+        } else {
+
+          try {
+            let score = JSON.parse(res.data.data.score);
+            console.log(score);
+            this.setState({
+              scope1:Number(score[1]),//红队分
+              scope2:Number(score[2])//白队分
+            })
+          }catch (err){
+
+          }
+          console.log();
+
+        }
+      }
+    })
+  }
   componentWillMount () { }
   newWebSocket = ()=>{
     Taro.connectSocket({
-      url: 'ws://application.idaowei.com:8080/party/websocket',
+      url: 'wss://application.idaowei.com/party/websocket',
       data:{
         x: '',
         y: ''
@@ -56,14 +94,16 @@ export default class Index extends Component {
               }),
               success:()=>{
               }})
-          Taro.onSocketMessage(function(res) {
+          Taro.onSocketMessage((res)=> {
             console.log('收到服务器内容：' + res.data)
           })
         })
 
-        Taro.onSocketClose(function(res) {
-          console.log('WebSocket 已关闭！')
-          this.state.isConnectSocket = false;
+        Taro.onSocketClose((res) =>{
+          console.log('WebSocket 已关闭！');
+          this.setState({
+            isConnectSocket:false
+          })
         })
 
       },
@@ -98,6 +138,7 @@ export default class Index extends Component {
       default:
           break;
     }
+    this.getInfoById();
     if(!this.state.isConnectSocket){
       this.newWebSocket();
     }
@@ -219,6 +260,7 @@ export default class Index extends Component {
     return (
       <View className='index'>
         <Image className='bg-img' src={BgImg} />
+        <Navigator className='returnPre' open-type='navigateBack'><View className='fontReturn'/></Navigator>
         <View className={types1ClassName}>
           <View className='top'>计分器</View>
           <View className='middle'>

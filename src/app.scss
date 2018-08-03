@@ -36,7 +36,7 @@
 .font-icon{
   width: 121px;
   height:161px;
-  background-size: 121px 161px;
+  background-size: auto 161px;
   background-position: center;
 }
 
@@ -53,4 +53,17 @@
   background: url($imgurl + "mao.png") no-repeat;
 }
 
-
+.returnPre{
+  position: fixed;
+  left:30px;
+  top:60px;
+  z-index: 10000;
+  color:#000;
+}
+.fontReturn{
+  width:35px;
+  height:49px;
+  background: url($imgurl + "return.png") no-repeat;
+  background-size: 35px 49px;
+  background-color:#dcd8cc;
+}
